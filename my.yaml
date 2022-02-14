@@ -1,0 +1,31 @@
+---
+ - hosts: all
+   tasks: 
+          - name: install httpd server
+            yum:
+                    name: httpd
+                    state: present
+
+
+          - service:
+                  name: httpd
+                  state: started
+
+          - copy:
+                  src: ./index.html
+                  dest: /var/www/index.html
+
+          - service:
+                  name: httpd
+                  state: restarted
+
+
+          - firewalld:
+                    port: 80/tcp
+                    state: enabled
+                    permanent: yes
+                    immediate: yes
+                    
+                 
+
+       
